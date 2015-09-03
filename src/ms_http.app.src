@@ -1,0 +1,13 @@
+{application, ms_http, [
+  {description, "ms http"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications, [
+    kernel,
+    stdlib,
+    lager,
+    cowboy
+  ]},
+  {mod, {ms_http_app, []}},
+  {env, []}
+]}.
