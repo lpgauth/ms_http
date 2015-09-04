@@ -5,7 +5,7 @@
   {applications, [
     kernel,
     stdlib,
-    lager,
+    ms_base,
     cowboy
   ]},
   {mod, {ms_http_app, []}},
