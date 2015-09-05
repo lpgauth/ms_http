@@ -1,4 +1,5 @@
 %% encoding: UTF-8
-{application,ms_logger}.
+{application,ms_http}.
 {packages,[]}.
-{modules,[ms_logger,ms_logger_app,ms_logger_sup]}.
+{modules,[ms_http_app,ms_http_cowboy,ms_http_json,ms_http_kv,ms_http_kv_rest,
+          ms_http_sup]}.

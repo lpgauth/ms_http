@@ -1,6 +1,6 @@
 
 
-# Module ms_logger_sup #
+# Module ms_http_sup #
 * [Function Index](#index)
 * [Function Details](#functions)
 

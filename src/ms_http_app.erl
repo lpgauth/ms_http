@@ -28,11 +28,11 @@ stop() ->
 -spec start(application:start_type(), term()) -> {ok, pid()}.
 
 start(_StartType, _StartArgs) ->
-    ms_http:start(),
+    ms_http_cowboy:start(),
     ms_http_sup:start_link().
 
 -spec stop(term()) -> ok.
 
 stop(_State) ->
-    ms_http:stop(),
+    ms_http_cowboy:stop(),
     ok.
