@@ -5,11 +5,11 @@ REBAR=./bin/rebar
 all: deps compile
 
 build-plt:
-	@dialyzer --build_plt --output_plt .$(PROJECT).plt \
+	@dialyzer --build_plt --output_plt ~/.$(PROJECT).plt \
 		--apps erts kernel stdlib deps/*/include deps/*/ebin
 
 check-plt:
-	@dialyzer --check_plt --plt .$(PROJECT).plt
+	@dialyzer --check_plt --plt ~/.$(PROJECT).plt
 
 clean:
 	# @rm -rf deps
@@ -24,7 +24,7 @@ deps:
 	@$(REBAR) update-deps
 
 dialyzer:
-	@dialyzer ebin/*.beam --plt .$(PROJECT).plt -I include
+	@dialyzer ebin/*.beam --plt ~/.$(PROJECT).plt -I include
 
 doc:
 	@echo "Running rebar update-deps..."
