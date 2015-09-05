@@ -13,10 +13,10 @@
 delete(_Key) ->
     ok.
 
--spec get(binary()) -> {ok, binary()}.
+-spec get(binary()) -> {ok, binary()} | not_found.
 
-get(<<"test">>) ->
-    {ok, <<"test">>};
+get(<<"foo2">>) ->
+    {ok, <<"bar">>};
 get(_) ->
     not_found.
 

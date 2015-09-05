@@ -5,6 +5,7 @@
 -define(DEFAULT_HTTP_MAX_KEEP_ALIVE, infinity).
 -define(DEFAULT_HTTP_PORT, 8080).
 -define(DEFAULT_HTTP_TIMEOUT, infinity).
+-define(ENV(Key, Default), application:get_env(?APP, Key, Default)).
 
 -record(ms_req, {
     timestamp     :: erlang:timestamp() | undefined,

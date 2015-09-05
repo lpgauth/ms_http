@@ -6,7 +6,7 @@
 ]).
 
 %% public
--spec req(#ms_req {}) -> binary().
+-spec req(ms_req()) -> iolist().
 
 req(Req) ->
     Prop = filter(record_info(fields, ms_req), tl(tuple_to_list(Req))),

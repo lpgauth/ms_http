@@ -10,20 +10,20 @@
 -spec start() -> ok.
 
 start() ->
-    HttpAcceptors = env(http_acceptors, ?DEFAULT_HTTP_ACCEPTORS),
-    HttpIp = env(http_ip, ?DEFAULT_HTTP_IP),
-    HttpMaxConnections = env(http_max_connections,
+    HttpAcceptors = ?ENV(http_acceptors, ?DEFAULT_HTTP_ACCEPTORS),
+    HttpIp = ?ENV(http_ip, ?DEFAULT_HTTP_IP),
+    HttpMaxConnections = ?ENV(http_max_connections,
         ?DEFAULT_HTTP_MAX_CONNECTIONS),
-    HttpMaxKeepAlive = env(http_max_connections,
+    HttpMaxKeepAlive = ?ENV(http_max_connections,
         ?DEFAULT_HTTP_MAX_KEEP_ALIVE),
-    HttpPort = env(http_port, ?DEFAULT_HTTP_PORT),
-    HttpTimeout = env(http_timeout, ?DEFAULT_HTTP_TIMEOUT),
+    HttpPort = ?ENV(http_port, ?DEFAULT_HTTP_PORT),
+    HttpTimeout = ?ENV(http_timeout, ?DEFAULT_HTTP_TIMEOUT),
 
     Dispatch = cowboy_router:compile([{'_', [
         {"/api/[:version]/kv/[:key]", ms_http_kv_rest, []}
     ]}]),
 
-    case cowboy:start_http(?APP, HttpAcceptors, [
+    try cowboy:start_http(?APP, HttpAcceptors, [
         {ip, HttpIp},
         {max_connections, HttpMaxConnections},
         {port, HttpPort}
@@ -39,13 +39,11 @@ start() ->
         {error, Reason} ->
             lager:warning("ms_http_app start_http error: ~p~n", [Reason]),
             ok
+    catch
+        _:_ -> ok
     end.
 
 -spec stop() -> ok.
 
 stop() ->
      cowboy:stop_listener(?APP).
-
-%% private
-env(Key, Default) ->
-    application:get_env(?APP, Key, Default).
