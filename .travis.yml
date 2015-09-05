@@ -1,11 +1,10 @@
 cache:
   directories:
-    - $HOME/.ms_http.plt
+    - $TRAVIS_BUILD_DIR/.ms_http.plt
 language: erlang
 notifications:
   email: false
 otp_release:
-  - 18.0
   - 17.5
 script: "make all build-plt test"
 sudo: false
