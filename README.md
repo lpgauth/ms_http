@@ -1,5 +1,7 @@
 # ms_http
 
+[![Build Status](https://travis-ci.org/lpgauth/ms_http.svg)](https://travis-ci.org/lpgauth/ms_http)
+
 Erlang microservice example (http)
 
 ### Requirements
