@@ -8,6 +8,26 @@
 ]).
 
 %% public
+-ifndef(TEST).
+
+-spec delete(binary()) -> ok.
+
+delete(Key) ->
+    ms_base:apply(ms_kv, ms_kv, delete, [Key]).
+
+-spec get(binary()) -> {ok, binary()} | not_found.
+
+get(Key) ->
+    ms_base:apply(ms_kv, ms_kv, get, [Key]).
+
+-spec put(binary(), binary()) -> ok.
+
+
+put(Key, Value) ->
+    ms_base:apply(ms_kv, ms_kv, put, [Key, Value]).
+
+-else.
+
 -spec delete(binary()) -> ok.
 
 delete(_Key) ->
@@ -24,3 +44,5 @@ get(_) ->
 
 put(_Key, _Value) ->
     ok.
+
+-endif.

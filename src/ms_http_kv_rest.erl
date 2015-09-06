@@ -113,5 +113,7 @@ rest_init(Req, []) ->
 
 -spec rest_terminate(cowboy_req:req(), ms_req()) -> ok.
 
-rest_terminate(_Req, _MsReq) ->
+rest_terminate(_Req, #ms_req {timestamp = Timestamp} = MsReq) ->
+    Bin = ms_http_json:req(MsReq),
+    ms_base:apply(ms_logger, ms_logger, log, [Timestamp, Bin]),
     ok.
