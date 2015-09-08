@@ -85,11 +85,7 @@ kv_rest_put() ->
 
     Url2 = url("/api/v1/kv/foo2"),
     Response2 = perform_request(put, Url2, Headers, Body),
-
-    assert_status(204, Response2),
-    assert_header("x-response-time", Response2),
-    assert_header_value("0", "content-length", Response2),
-    assert_header_value("text/plain", "content-type", Response2),
+    assert_status(400, Response2),
 
     Url3 = url("/api/v1/kv"),
     Response3 = perform_request(put, Url3, Headers, Body),

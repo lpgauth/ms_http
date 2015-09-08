@@ -55,6 +55,8 @@ init(_Transport, _Req, _Opts) ->
 
 put(Req, #ms_req {key = undefined} = MsReq) ->
     {false, Req, MsReq};
+put(Req, #ms_req {found = true} = MsReq) ->
+    {false, Req, MsReq};
 put(Req, #ms_req {key = Key} = MsReq) ->
     case cowboy_req:body(Req) of
         {ok, Value, Req2} ->
