@@ -13,9 +13,9 @@ ms_http_test_() ->
         fun (_) -> cleanup() end,
     [
         fun json_req/0,
-        fun kv_rest_delete/0,
         fun kv_rest_get/0,
-        fun kv_rest_put/0
+        fun kv_rest_put/0,
+        fun logger_rest_put/0
     ]}.
 
 %% tests
@@ -56,61 +56,70 @@ json_req() ->
 
 kv_rest_get() ->
     Url = url("/api/v1/kv/foo"),
-    {ok, 404, Headers, ""} = perform_request(get, Url),
+    Response = perform_request(get, Url),
 
-    assert_prop("x-response-time", Headers),
-    assert_prop_value("0", "content-length", Headers),
-    assert_prop_value("text/plain", "content-type", Headers),
+    assert_status(404, Response),
+    assert_header("x-response-time", Response),
+    assert_header_value("0", "content-length", Response),
+    assert_header_value("text/plain", "content-type", Response),
 
     Url2 = url("/api/v1/kv/foo2"),
-    {ok, 200, Headers2, "bar"} = perform_request(get, Url2),
+    Response2 = perform_request(get, Url2),
 
-    assert_prop("x-response-time", Headers2),
-    assert_prop_value("3", "content-length", Headers2),
-    assert_prop_value("text/plain", "content-type", Headers2).
+    assert_status(200, Response2),
+    assert_header("x-response-time", Response2),
+    assert_header_value("3", "content-length", Response2),
+    assert_header_value("text/plain", "content-type", Response2).
 
 kv_rest_put() ->
     Url = url("/api/v1/kv/foo"),
     Headers = [{"content-type", "text/plain"}],
     Body = "bar",
 
-    {ok, 201, Headers2, ""} = perform_request(put, Url, Headers, Body),
+    Response = perform_request(put, Url, Headers, Body),
 
-    assert_prop("x-response-time", Headers2),
-    assert_prop_value("0", "content-length", Headers2),
-    assert_prop_value("text/plain", "content-type", Headers2),
+    assert_status(201, Response),
+    assert_header("x-response-time", Response),
+    assert_header_value("0", "content-length", Response),
+    assert_header_value("text/plain", "content-type", Response),
 
     Url2 = url("/api/v1/kv/foo2"),
-    {ok, 204, Headers3, ""} = perform_request(put, Url2, Headers, Body),
+    Response2 = perform_request(put, Url2, Headers, Body),
 
-    assert_prop("x-response-time", Headers3),
-    assert_prop_value("0", "content-length", Headers3),
-    assert_prop_value("text/plain", "content-type", Headers3),
+    assert_status(204, Response2),
+    assert_header("x-response-time", Response2),
+    assert_header_value("0", "content-length", Response2),
+    assert_header_value("text/plain", "content-type", Response2),
 
     Url3 = url("/api/v1/kv"),
-    {ok, 400, _Headers4, ""} = perform_request(put, Url3, Headers, Body).
+    Response3 = perform_request(put, Url3, Headers, Body),
+    assert_status(400, Response3).
 
-kv_rest_delete() ->
-    Url = url("/api/v1/kv/foo2"),
-    {ok, 204, Headers, ""} = perform_request(delete, Url),
+logger_rest_put() ->
+    Url = url("/api/v1/logger/2015-09-06-05"),
+    Headers = [{"content-type", "text/plain"}],
+    Body = "bar",
 
-    assert_prop("x-response-time", Headers),
-    assert_prop_value("0", "content-length", Headers),
-    assert_prop_value("text/plain", "content-type", Headers),
+    Response = perform_request(put, Url, Headers, Body),
 
-    Url2 = url("/api/v1/kv/foo"),
-    {ok, 404, Headers2, ""} = perform_request(delete, Url2),
+    assert_status(204, Response),
+    assert_header("x-response-time", Response),
+    assert_header_value("0", "content-length", Response),
+    assert_header_value("text/plain", "content-type", Response),
 
-    assert_prop("x-response-time", Headers2),
-    assert_prop_value("0", "content-length", Headers2),
-    assert_prop_value("text/plain", "content-type", Headers2).
+    Url2 = url("/api/v1/logger"),
+    Response2 = perform_request(put, Url2, Headers, Body),
+    assert_status(400, Response2).
 
 %% utils
-assert_prop_value(Expected, Header, Headers) ->
+assert_header_value(Expected, Header, {ok, _, Headers, _}) ->
     ?assertEqual(Expected, lookup(Header, Headers, undefined)).
 
-assert_prop(Header, Headers) ->
+assert_header(Header, {ok, _, Headers, _}) ->
     ?assertNotEqual(undefined, lookup(Header, Headers, undefined)).
+
+assert_status(Expected, {ok, Status, _, _}) ->
+    ?assertEqual(Expected, Status).
 
 cleanup() ->
     ms_http_app:stop(),

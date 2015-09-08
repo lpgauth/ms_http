@@ -8,9 +8,9 @@
 -define(ENV(Key, Default), application:get_env(?APP, Key, Default)).
 
 -record(ms_req, {
-    timestamp     :: erlang:timestamp() | undefined,
-    method        :: binary() | undefined,
-    path          :: binary() | undefined,
+    timestamp     :: erlang:timestamp(),
+    method        :: binary(),
+    path          :: binary(),
     found = false :: boolean(),
     key           :: binary() | undefined,
     value         :: binary() | undefined

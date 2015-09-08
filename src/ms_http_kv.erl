@@ -2,18 +2,12 @@
 -include("ms_http.hrl").
 
 -export([
-    delete/1,
     get/1,
     put/2
 ]).
 
 %% public
 -ifndef(TEST).
-
--spec delete(binary()) -> ok.
-
-delete(Key) ->
-    ms_base:apply(ms_kv, ms_kv, delete, [Key]).
 
 -spec get(binary()) -> {ok, binary()} | not_found.
 
@@ -27,11 +21,6 @@ put(Key, Value) ->
     ms_base:apply(ms_kv, ms_kv, put, [Key, Value]).
 
 -else.
-
--spec delete(binary()) -> ok.
-
-delete(_Key) ->
-    ok.
 
 -spec get(binary()) -> {ok, binary()} | not_found.
 

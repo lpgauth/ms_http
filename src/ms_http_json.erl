@@ -6,11 +6,11 @@
 ]).
 
 %% public
--spec req(ms_req()) -> iolist().
+-spec req(ms_req()) -> binary().
 
 req(Req) ->
     Prop = filter(record_info(fields, ms_req), tl(tuple_to_list(Req))),
-    jiffy:encode({Prop}, [force_utf8]).
+    iolist_to_binary(jiffy:encode({Prop}, [force_utf8])).
 
 %% private
 filter([], []) ->

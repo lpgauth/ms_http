@@ -16,7 +16,7 @@
 
 
 <pre><code>
-ms_req() = #ms_req{timestamp = <a href="erlang.md#type-timestamp">erlang:timestamp()</a> | undefined, method = binary() | undefined, path = binary() | undefined, found = boolean(), key = binary() | undefined, value = binary() | undefined}
+ms_req() = #ms_req{timestamp = undefined | <a href="erlang.md#type-timestamp">erlang:timestamp()</a>, method = undefined | binary(), path = undefined | binary(), found = boolean(), key = binary() | undefined, value = binary() | undefined}
 </code></pre>
 
 <a name="index"></a>
@@ -24,7 +24,7 @@ ms_req() = #ms_req{timestamp = <a href="erlang.md#type-timestamp">erlang:timesta
 ## Function Index ##
 
 
-<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#allowed_methods-2">allowed_methods/2</a></td><td></td></tr><tr><td valign="top"><a href="#content_types_accepted-2">content_types_accepted/2</a></td><td></td></tr><tr><td valign="top"><a href="#content_types_provided-2">content_types_provided/2</a></td><td></td></tr><tr><td valign="top"><a href="#delete_resource-2">delete_resource/2</a></td><td></td></tr><tr><td valign="top"><a href="#get-2">get/2</a></td><td></td></tr><tr><td valign="top"><a href="#init-3">init/3</a></td><td></td></tr><tr><td valign="top"><a href="#put-2">put/2</a></td><td></td></tr><tr><td valign="top"><a href="#resource_exists-2">resource_exists/2</a></td><td></td></tr><tr><td valign="top"><a href="#rest_init-2">rest_init/2</a></td><td></td></tr><tr><td valign="top"><a href="#rest_terminate-2">rest_terminate/2</a></td><td></td></tr></table>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#allowed_methods-2">allowed_methods/2</a></td><td></td></tr><tr><td valign="top"><a href="#content_types_accepted-2">content_types_accepted/2</a></td><td></td></tr><tr><td valign="top"><a href="#content_types_provided-2">content_types_provided/2</a></td><td></td></tr><tr><td valign="top"><a href="#get-2">get/2</a></td><td></td></tr><tr><td valign="top"><a href="#init-3">init/3</a></td><td></td></tr><tr><td valign="top"><a href="#put-2">put/2</a></td><td></td></tr><tr><td valign="top"><a href="#resource_exists-2">resource_exists/2</a></td><td></td></tr><tr><td valign="top"><a href="#rest_init-2">rest_init/2</a></td><td></td></tr><tr><td valign="top"><a href="#rest_terminate-2">rest_terminate/2</a></td><td></td></tr></table>
 
 
 <a name="functions"></a>
@@ -55,15 +55,6 @@ content_types_accepted(Req::<a href="cowboy_req.md#type-req">cowboy_req:req()</a
 
 <pre><code>
 content_types_provided(Req::<a href="cowboy_req.md#type-req">cowboy_req:req()</a>, MsReq::<a href="#type-ms_req">ms_req()</a>) -&gt; {[{binary(), atom()}], <a href="cowboy_req.md#type-req">cowboy_req:req()</a>, <a href="#type-ms_req">ms_req()</a>}
-</code></pre>
-<br />
-
-<a name="delete_resource-2"></a>
-
-### delete_resource/2 ###
-
-<pre><code>
-delete_resource(Req::<a href="cowboy_req.md#type-req">cowboy_req:req()</a>, Ms_req::<a href="#type-ms_req">ms_req()</a>) -&gt; {true, <a href="cowboy_req.md#type-req">cowboy_req:req()</a>, <a href="#type-ms_req">ms_req()</a>}
 </code></pre>
 <br />
 
@@ -117,7 +108,7 @@ rest_init(Req::<a href="cowboy_req.md#type-req">cowboy_req:req()</a>, X2::[]) -&
 ### rest_terminate/2 ###
 
 <pre><code>
-rest_terminate(Req::<a href="cowboy_req.md#type-req">cowboy_req:req()</a>, MsReq::<a href="#type-ms_req">ms_req()</a>) -&gt; ok
+rest_terminate(Req::<a href="cowboy_req.md#type-req">cowboy_req:req()</a>, Ms_req::<a href="#type-ms_req">ms_req()</a>) -&gt; ok
 </code></pre>
 <br />
 

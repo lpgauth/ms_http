@@ -2,4 +2,4 @@
 {application,ms_http}.
 {packages,[]}.
 {modules,[ms_http_app,ms_http_cowboy,ms_http_json,ms_http_kv,ms_http_kv_rest,
-          ms_http_sup]}.
+          ms_http_logger,ms_http_logger_rest,ms_http_sup]}.

@@ -10,10 +10,15 @@ Erlang microservice example (http)
 
 ## API
 
+### kv
 ```
 curl -i -X PUT -H 'Content-Type: text/plain' -d 'bar' 'http://127.0.0.1:8080/api/v1/kv/foo'
 curl -i -X GET    'http://127.0.0.1:8080/api/v1/kv/foo'
-curl -i -X DELETE 'http://127.0.0.1:8080/api/v1/kv/foo'
+```
+
+### logger
+```
+curl -i -X PUT -H 'Content-Type: text/plain' -d 'bar' 'http://127.0.0.1:8080/api/v1/logger/2015-09-06-05'
 ```
 
 ## Tests

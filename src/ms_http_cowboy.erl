@@ -37,7 +37,8 @@ start() ->
     HttpTimeout = ?ENV(http_timeout, ?DEFAULT_HTTP_TIMEOUT),
 
     Dispatch = cowboy_router:compile([{'_', [
-        {"/api/[:version]/kv/[:key]", ms_http_kv_rest, []}
+        {"/api/[:version]/kv/[:key]", ms_http_kv_rest, []},
+        {"/api/[:version]/logger/[:key]", ms_http_logger_rest, []}
     ]}]),
 
     try cowboy:start_http(?APP, HttpAcceptors, [

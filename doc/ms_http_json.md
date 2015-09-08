@@ -16,7 +16,7 @@
 
 
 <pre><code>
-ms_req() = #ms_req{timestamp = <a href="erlang.md#type-timestamp">erlang:timestamp()</a> | undefined, method = binary() | undefined, path = binary() | undefined, found = boolean(), key = binary() | undefined, value = binary() | undefined}
+ms_req() = #ms_req{timestamp = undefined | <a href="erlang.md#type-timestamp">erlang:timestamp()</a>, method = undefined | binary(), path = undefined | binary(), found = boolean(), key = binary() | undefined, value = binary() | undefined}
 </code></pre>
 
 <a name="index"></a>
@@ -36,7 +36,7 @@ ms_req() = #ms_req{timestamp = <a href="erlang.md#type-timestamp">erlang:timesta
 ### req/1 ###
 
 <pre><code>
-req(Req::<a href="#type-ms_req">ms_req()</a>) -&gt; iolist()
+req(Req::<a href="#type-ms_req">ms_req()</a>) -&gt; binary()
 </code></pre>
 <br />
 

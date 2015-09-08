@@ -6,7 +6,6 @@
     allowed_methods/2,
     content_types_accepted/2,
     content_types_provided/2,
-    delete_resource/2,
     get/2,
     init/3,
     put/2,
@@ -16,7 +15,6 @@
 ]).
 
 -define(HTTP_METHODS, [
-    <<"DELETE">>,
     <<"GET">>,
     <<"PUT">>
 ]).
@@ -39,13 +37,6 @@ content_types_accepted(Req, MsReq) ->
 
 content_types_provided(Req, MsReq) ->
     {[{<<"text/plain">>, get}], Req, MsReq}.
-
--spec delete_resource(cowboy_req:req(), ms_req()) ->
-    {true, cowboy_req:req(), ms_req()}.
-
-delete_resource(Req, #ms_req {key = Key} = MsReq) ->
-    ms_http_kv:delete(Key),
-    {true, Req, MsReq}.
 
 -spec get(cowboy_req:req(), ms_req()) ->
     {binary(), cowboy_req:req(), ms_req()}.
@@ -115,5 +106,5 @@ rest_init(Req, []) ->
 
 rest_terminate(_Req, #ms_req {timestamp = Timestamp} = MsReq) ->
     Bin = ms_http_json:req(MsReq),
-    ms_base:apply(ms_logger, ms_logger, log, [Timestamp, Bin]),
+    ms_http_logger:log(Timestamp, Bin),
     ok.
