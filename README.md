@@ -13,7 +13,7 @@ Erlang microservice example (http)
 ### kv
 ```
 curl -i -X PUT -H 'Content-Type: text/plain' -d 'bar' 'http://127.0.0.1:8080/api/v1/kv/foo'
-curl -i -X GET    'http://127.0.0.1:8080/api/v1/kv/foo'
+curl -i -X GET 'http://127.0.0.1:8080/api/v1/kv/foo'
 ```
 
 ### logger
