@@ -48,6 +48,7 @@ get(Req, #ms_req {value = Value} = MsReq) ->
     {upgrade, protocol, cowboy_rest}.
 
 init(_Transport, _Req, _Opts) ->
+    ms_base_metric:increment(<<"ms_http_kv.request">>, 1, ?SAMPLE_RATE),
     {upgrade, protocol, cowboy_rest}.
 
 -spec put(cowboy_req:req(), ms_req()) ->
@@ -84,7 +85,7 @@ resource_exists(Req, MsReq) ->
                         found = true,
                         value = Value
                     }};
-                not_found ->
+                _ ->
                     {false, Req2, MsReq#ms_req {
                         key = Key
                     }}
@@ -109,4 +110,5 @@ rest_init(Req, []) ->
 rest_terminate(_Req, #ms_req {timestamp = Timestamp} = MsReq) ->
     Bin = ms_http_json:req(MsReq),
     ms_http_logger:log(Timestamp, Bin),
-    ok.
+    Diff = timer:now_diff(os:timestamp(), Timestamp),
+    ms_base_metric:timing(<<"ms_http_logger.request">>, Diff, ?SAMPLE_RATE).
