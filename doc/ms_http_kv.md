@@ -30,7 +30,7 @@ get(Key::binary()) -&gt; {ok, binary()} | not_found
 ### put/2 ###
 
 <pre><code>
-put(Key::binary(), Value::binary()) -&gt; ok
+put(Key::binary(), Value::binary()) -&gt; [ok]
 </code></pre>
 <br />
 
